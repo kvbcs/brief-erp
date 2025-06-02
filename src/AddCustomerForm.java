@@ -88,46 +88,47 @@ public class AddCustomerForm extends JFrame {
             String address2 = address2Field.getText().trim();
             String city = cityField.getText().trim();
             String state = stateField.getText().trim();
-            String zip = zipField.getText().trim();
+            int zip = Integer.parseInt(zipField.getText().trim()); // ⬅️ zip redeviens int
             String country = countryField.getText().trim();
-            String region = regionField.getText().trim();
+            int region = Integer.parseInt(regionField.getText().trim());
             String email = emailField.getText().trim();
             String phone = phoneField.getText().trim();
-            String creditCardType = creditCardTypeField.getText().trim();
+            int creditCardType = Integer.parseInt(creditCardTypeField.getText().trim());
             String creditCard = creditCardField.getText().trim();
             String creditCardExpiration = creditCardExpirationField.getText().trim();
             String username = usernameField.getText().trim();
             String password = passwordField.getText().trim();
-            int age = Integer.parseInt(ageField.getText().trim());
-            String income = incomeField.getText().trim();
+            int age = Integer.parseInt(ageField.getText().trim()); // ✅ age reste en int
+            int income = Integer.parseInt(incomeField.getText().trim()); // ✅ income as String
             String gender = genderField.getText().trim();
-
-            // Vérification minimale (ajoute plus si besoin)
+    
             if (firstname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Champs obligatoires manquants.", "Erreur", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+    
             CustomerDAO dao = new CustomerDAO();
             boolean success = dao.addCustomer(
-                0, firstname, lastname, address1, address2, city, state, zip, country, region,
-                email, phone, creditCardType, creditCard, creditCardExpiration,
-                username, password, age, income, gender
+                0, firstname, lastname, address1, address2, city, state, zip,
+                country, region, email, phone, creditCardType,
+                creditCard, creditCardExpiration, username, password,
+                age, income, gender
             );
-
+    
             if (success) {
                 JOptionPane.showMessageDialog(this, "✅ Client ajouté avec succès !");
-                dispose(); // Ferme la fenêtre si tu veux
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "❌ Échec de l'ajout.", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-
+    
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "⚠️ Format invalide pour l'âge.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "⚠️ Format invalide de nombre", "Erreur", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "❌ Erreur : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new AddCustomerForm().setVisible(true));

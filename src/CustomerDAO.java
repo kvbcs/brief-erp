@@ -1,4 +1,3 @@
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,10 +32,10 @@ public class CustomerDAO {
     
     public boolean addCustomer(
         int customerid, String firstname, String lastname, String address1, String address2,
-        String city, String state, String zip, String country, String region,
-        String email, String phone, String creditcardtype, String creditcard,
+        String city, String state, int zip, String country, int region,
+        String email, String phone, int creditcardtype, String creditcard,
         String creditcardexpiration, String username, String password,
-        int age, String income, String gender) {
+        int age, int income, String gender) {
     
         String sql = "INSERT INTO customers (customerid, firstname, lastname, address1, address2, city, state, zip, country, region, email, phone, creditcardtype, creditcard, creditcardexpiration, username, password, age, income, gender) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -51,18 +50,18 @@ public class CustomerDAO {
             stmt.setString(5, address2);
             stmt.setString(6, city);
             stmt.setString(7, state);
-            stmt.setString(8, zip);
+            stmt.setInt(8, zip);
             stmt.setString(9, country);
-            stmt.setString(10, region);
+            stmt.setInt(10, region);
             stmt.setString(11, email);
             stmt.setString(12, phone);
-            stmt.setString(13, creditcardtype);
+            stmt.setInt(13, creditcardtype);
             stmt.setString(14, creditcard);
             stmt.setString(15, creditcardexpiration);
             stmt.setString(16, username);
             stmt.setString(17, password);
             stmt.setInt(18, age);
-            stmt.setString(19, income);
+            stmt.setInt(19, income);
             stmt.setString(20, gender);
     
             stmt.executeUpdate();
