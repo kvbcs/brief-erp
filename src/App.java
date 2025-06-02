@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        System.out.print("uuhu");
         try ( Connection connect = DatabaseManager.getConnection()) {
            
 if (connect != null){
